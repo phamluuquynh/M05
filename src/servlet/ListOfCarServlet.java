@@ -16,7 +16,7 @@ import model.Car;
 /**
  * Servlet implementation class ListOfCarServlet
  */
-@WebServlet("/ListOfCar")
+@WebServlet("/listOfCar")
 public class ListOfCarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,9 +47,9 @@ public class ListOfCarServlet extends HttpServlet {
 			System.out.println(name);
 		}
 		
-//		request.setAttribute("listAllCar", listAllCar);
-//		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/listOfCar.jsp");
-//		doGet(request, response);
+		request.setAttribute("listAllCar", listAllCar);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/listOfCar.jsp");
+		requestDispatcher.forward(request, response);
 	}
 
 }

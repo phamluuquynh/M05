@@ -13,11 +13,11 @@ import model.ModernCar;
 import model.OldCar;
 
 public class DAO {
-	private String user = "c##ex7_car";
-	private String password = "1234";
-	private String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+	public static final String user = "c##ex7_car";
+	public static final String password = "1234";
+	public static final String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 
-	private Connection connection;
+	public Connection connection;
 
 	public Connection getConnectDB() {
 		try {
@@ -26,12 +26,25 @@ public class DAO {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			// closeConnect();
 		}
 		return connection;
 
 	}
 
 	public void closeConnect() {
+
+		if (connection != null) {
+			try {
+				System.out.println("Have a connect");
+				connection.close();
+				connection = null;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 	}
 
@@ -76,48 +89,53 @@ public class DAO {
 			connection = this.getConnectDB();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet resultSet = ps.executeQuery();
+			Car car = null;
 			while (resultSet.next()) {
-				Car car = null;
-				String carName = resultSet.getString(1);
-				int numberPlate = resultSet.getInt(2);
-				int yearOfManufacture = resultSet.getInt(3);
-				String brand = resultSet.getString(4);
-				boolean insurance;
-				String nameInsurance = resultSet.getString(9);
-				if (nameInsurance == null) {
-					insurance = false;
-				} else {
-					insurance = true;
-				}
-				boolean havePositioningDevice = false;
-				String havePosition = resultSet.getString(5);
-				if (havePosition != null) {
-					if (havePosition.equals("yes")) {
-						havePositioningDevice = true;
-					} else {
-						havePositioningDevice = false;
-					}
-				}
-				car = new ModernCar(carName, numberPlate, yearOfManufacture, brand, insurance, havePositioningDevice);
 
-				String haveSteering = resultSet.getString(6);
-				if (haveSteering != null) {
+				String carName = resultSet.getString("namecar");
+				int numberPlate = resultSet.getInt("numberplate");
+				int yearOfManufacture = resultSet.getInt("yearofmanufacture");
+				String brand = resultSet.getString("brand");
+				boolean insurance;
+				String nameInsurance = resultSet.getString("nameinsurance");
+				String haveSteering = resultSet.getString("havepowersteering");
+				int actionDuration = resultSet.getInt("actionduration");
+				if (nameInsurance != null) {
+					insurance = true;
+				} else {
+					insurance = false;
+				}
+
+				String havePosition = resultSet.getString("havepositiondevice");
+				// if (havePosition != null) {
+				// if (havePosition.equals("yes")) {
+				// havePositioningDevice = true;
+				// } else {
+				// havePositioningDevice = false;
+				// }
+				// }
+
+				if (havePosition != null) {
+					boolean havePositioningDevice = "yes".equals(havePosition);
+					 car = new ModernCar(carName,numberPlate,yearOfManufacture,brand,insurance,havePositioningDevice);
+//					 car.setCarName(carName);
+//					 car.setNumberPlate(numberPlate);
+//					 car.setYearOfManufacture(yearOfManufacture);
+//					 car.setBrand(brand);
+//					 car.setInsurance(insurance);
+//					 
+					 
+				} else if (haveSteering != null) {
 					if (haveSteering.equals("yes")) {
 						car = new MediumCar(carName, numberPlate, yearOfManufacture, brand, insurance, true);
 					} else {
 						car = new MediumCar(carName, numberPlate, yearOfManufacture, brand, insurance, false);
 					}
-				}
-				int actionDuration = resultSet.getInt(7);
-				if (actionDuration > 0) {
+				} else if (actionDuration > 0) {
 					car = new OldCar(carName, numberPlate, yearOfManufacture, brand, insurance, actionDuration);
 				}
 
-			}
-			
-			for(int i=0;i<listAllCars.size();i++) {
-				String name = listAllCars.get(i).getCarName();
-				System.out.println(name);
+				listAllCars.add(car);
 			}
 
 		} catch (Exception ex) {
@@ -126,8 +144,7 @@ public class DAO {
 		}
 
 		return listAllCars;
-		
-		
+
 	}
 
 }

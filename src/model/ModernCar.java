@@ -13,6 +13,15 @@ public class ModernCar extends Car {
 		this.havePositioningDevice = havePositioningDevice;
 	}
 
+	
+	public boolean isHavePositioningDevice() {
+		return havePositioningDevice;
+	}
+
+	public void setHavePositioningDevice(boolean havePositioningDevice) {
+		this.havePositioningDevice = havePositioningDevice;
+	}
+
 	@Override
 	public void showCarInfo() {
 		// TODO Auto-generated method stub
