@@ -8,7 +8,8 @@ public class MediumCar extends Car {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MediumCar(String carName, int numberPlate, int yearOfManufacture, String brand, boolean insurance, boolean havePowerSteering ) {
+	public MediumCar(String carName, int numberPlate, int yearOfManufacture, String brand, boolean insurance,
+			boolean havePowerSteering) {
 		super(carName, numberPlate, yearOfManufacture, brand, insurance);
 		// TODO Auto-generated constructor stub
 		this.havePowerSteering = havePowerSteering;
@@ -17,10 +18,18 @@ public class MediumCar extends Car {
 	@Override
 	public void showCarInfo() {
 		// TODO Auto-generated method stub
-//		super.showCarInfo();
-		System.out.println(getCarName()+" - "+getNumberPlate()+ " - "+getYearOfManufacture()+" - "+getBrand()+" - "+isInsurance()+" - "+havePowerSteering);
+		// super.showCarInfo();
+		System.out.println(getCarName() + " - " + getNumberPlate() + " - " + getYearOfManufacture() + " - " + getBrand()
+				+ " - " + isInsurance() + " - " + havePowerSteering);
 
 	}
-	
-	
+
+	public boolean isHavePowerSteering() {
+		return havePowerSteering;
+	}
+
+	public void setHavePowerSteering(boolean havePowerSteering) {
+		this.havePowerSteering = havePowerSteering;
+	}
+
 }

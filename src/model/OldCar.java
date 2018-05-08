@@ -17,8 +17,17 @@ public class OldCar extends Car {
 	@Override
 	public void showCarInfo() {
 		// TODO Auto-generated method stub
-		System.out.println(getCarName()+" - "+getNumberPlate()+ " - "+getYearOfManufacture()+" - "+getBrand()+" - "+isInsurance()+" - "+actionDuration);
+		System.out.println(getCarName() + " - " + getNumberPlate() + " - " + getYearOfManufacture() + " - " + getBrand()
+				+ " - " + isInsurance() + " - " + actionDuration);
 
+	}
+
+	public int getActionDuration() {
+		return actionDuration;
+	}
+
+	public void setActionDuration(int actionDuration) {
+		this.actionDuration = actionDuration;
 	}
 
 }

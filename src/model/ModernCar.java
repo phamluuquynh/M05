@@ -13,7 +13,13 @@ public class ModernCar extends Car {
 		this.havePositioningDevice = havePositioningDevice;
 	}
 
-	
+	@Override
+	public void showCarInfo() {
+		// TODO Auto-generated method stub
+//		super.showCarInfo();
+		System.out.println(getCarName()+" - "+getNumberPlate()+ " - "+getYearOfManufacture()+" - "+getBrand()+" - "+isInsurance()+" - "+havePositioningDevice);
+	}
+
 	public boolean isHavePositioningDevice() {
 		return havePositioningDevice;
 	}
@@ -22,15 +28,5 @@ public class ModernCar extends Car {
 		this.havePositioningDevice = havePositioningDevice;
 	}
 
-	@Override
-	public void showCarInfo() {
-		// TODO Auto-generated method stub
-//		super.showCarInfo();
-		System.out.println(getCarName()+" - "+getNumberPlate()+ " - "+getYearOfManufacture()+" - "+getBrand()+" - "+isInsurance()+" - "+havePositioningDevice);
-	}
-
-	
-	
-	
 
 }

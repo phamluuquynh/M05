@@ -13,11 +13,11 @@ import model.ModernCar;
 import model.OldCar;
 
 public class DAO {
-	public static final String user = "c##ex7_car";
-	public static final String password = "1234";
-	public static final String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+	private String user = "c##ex7_car";
+	private String password = "1234";
+	private String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 
-	public Connection connection;
+	private Connection connection;
 
 	public Connection getConnectDB() {
 		try {
@@ -26,25 +26,12 @@ public class DAO {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			// closeConnect();
 		}
 		return connection;
 
 	}
 
 	public void closeConnect() {
-
-		if (connection != null) {
-			try {
-				System.out.println("Have a connect");
-				connection.close();
-				connection = null;
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 
 	}
 
@@ -89,61 +76,45 @@ public class DAO {
 			connection = this.getConnectDB();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet resultSet = ps.executeQuery();
-			Car car = null;
 			while (resultSet.next()) {
-
-				String carName = resultSet.getString("namecar");
-				int numberPlate = resultSet.getInt("numberplate");
-				int yearOfManufacture = resultSet.getInt("yearofmanufacture");
-				String brand = resultSet.getString("brand");
-				boolean insurance;
-				String nameInsurance = resultSet.getString("nameinsurance");
-				String haveSteering = resultSet.getString("havepowersteering");
-				int actionDuration = resultSet.getInt("actionduration");
-				if (nameInsurance != null) {
-					insurance = true;
+				String haveSteering = resultSet.getString(6);
+				int actionDuration = resultSet.getInt(7);
+				if (actionDuration > 0) {
+					OldCar oldCar = new OldCar();
+					this.setCarCommonInformation(resultSet, oldCar);
+					oldCar.setActionDuration(actionDuration);
+					listAllCars.add(oldCar);
+				} else if (null != haveSteering) {
+					MediumCar mediumCar = new MediumCar();
+					this.setCarCommonInformation(resultSet, mediumCar);
+					mediumCar.setHavePowerSteering("yes".equals(haveSteering));
+					listAllCars.add(mediumCar);
 				} else {
-					insurance = false;
+					ModernCar modernCar = new ModernCar();
+					this.setCarCommonInformation(resultSet, modernCar);
+					modernCar.setHavePositioningDevice("yes".equals(resultSet.getString(5)));
+					listAllCars.add(modernCar);
 				}
 
-				String havePosition = resultSet.getString("havepositiondevice");
-				// if (havePosition != null) {
-				// if (havePosition.equals("yes")) {
-				// havePositioningDevice = true;
-				// } else {
-				// havePositioningDevice = false;
-				// }
-				// }
-
-				if (havePosition != null) {
-					boolean havePositioningDevice = "yes".equals(havePosition);
-					 car = new ModernCar(carName,numberPlate,yearOfManufacture,brand,insurance,havePositioningDevice);
-//					 car.setCarName(carName);
-//					 car.setNumberPlate(numberPlate);
-//					 car.setYearOfManufacture(yearOfManufacture);
-//					 car.setBrand(brand);
-//					 car.setInsurance(insurance);
-//					 
-					 
-				} else if (haveSteering != null) {
-					if (haveSteering.equals("yes")) {
-						car = new MediumCar(carName, numberPlate, yearOfManufacture, brand, insurance, true);
-					} else {
-						car = new MediumCar(carName, numberPlate, yearOfManufacture, brand, insurance, false);
-					}
-				} else if (actionDuration > 0) {
-					car = new OldCar(carName, numberPlate, yearOfManufacture, brand, insurance, actionDuration);
-				}
-
-				listAllCars.add(car);
 			}
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
-
 		}
 
 		return listAllCars;
+	}
+
+	private void setCarCommonInformation(ResultSet resultSet, Car car) {
+		try {
+			car.setCarName(resultSet.getString(1));
+			car.setNumberPlate(resultSet.getInt(2));
+			car.setYearOfManufacture(resultSet.getInt(3));
+			car.setBrand(resultSet.getString(4));
+			car.setInsurance(resultSet.getString(9) != null);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
