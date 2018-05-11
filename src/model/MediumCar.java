@@ -13,6 +13,7 @@ public class MediumCar extends Car {
 		super(carName, numberPlate, yearOfManufacture, brand, insurance);
 		// TODO Auto-generated constructor stub
 		this.havePowerSteering = havePowerSteering;
+		
 	}
 
 	@Override
@@ -30,6 +31,7 @@ public class MediumCar extends Car {
 
 	public void setHavePowerSteering(boolean havePowerSteering) {
 		this.havePowerSteering = havePowerSteering;
+		this.otherFeature = "Have Power Steering: " +this.havePowerSteering;
 	}
 
 }

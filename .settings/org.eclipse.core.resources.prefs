@@ -1,4 +1,7 @@
 eclipse.preferences.version=1
-encoding//WebContent/Menu.jsp=UTF-8
+encoding//WebContent/buyInsurance.jsp=UTF-8
+encoding//WebContent/home.jsp=UTF-8
 encoding//WebContent/index.jsp=UTF-8
 encoding//WebContent/listOfCar.jsp=UTF-8
+encoding//src/servlet/AddCarServlet.java=UTF-8
+encoding//src/servlet/AddInsuranceServlet.java=UTF-8

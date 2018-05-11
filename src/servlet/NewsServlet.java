@@ -11,19 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.DAO;
-import model.Car;
+import model.News;
 
 /**
- * Servlet implementation class ListOfCarServlet
+ * Servlet implementation class NewsServlet
  */
-@WebServlet("/listOfCar")
-public class ListOfCarServlet extends HttpServlet {
+@WebServlet("/NewsServlet")
+public class NewsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListOfCarServlet() {
+    public NewsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,10 +41,15 @@ public class ListOfCarServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DAO dao = new DAO();
-		ArrayList<Car> listAllCar = dao.getAllCars();
-		
-		request.setAttribute("listAllCar", listAllCar);
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/listOfCar.jsp");
+		ArrayList<News> listNews = (ArrayList<News>) dao.GetNews();
+		System.out.println(listNews.size()+"");
+		for(int i=0;i<listNews.size();i++) {
+			String news = listNews.get(i).getNewsTitle();
+			System.out.println(news);
+			
+		}
+		request.setAttribute("LIST_VIEW", listNews);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/home.jsp");
 		requestDispatcher.forward(request, response);
 	}
 

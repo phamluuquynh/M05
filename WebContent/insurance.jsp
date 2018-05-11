@@ -11,21 +11,33 @@
 	<form action="AddInsuranceServlet" method="get">
 		<table>
 			<tr>
-				<td>Insurance Name:<td />
-				<td><input type="text" name="insuranceName"><td />
+				<td>Insurance Name:
+				<td />
+				<td><input type="text" name="insuranceName">
+				<td />
 			<tr />
-			
+
 			<tr>
-				<td>Insurance Type:<td />
-				<td><input type="text" name="insuranceType"><td />
-			<tr />
-			
-			<tr>
+				<td>Insurance Type:
+				<td />
+
+				<td>
+					<select name="insuranceType" >
+					<option>A</option>
+					<option>B</option>
+					<option>C</option>
 				
-				<td><input type="submit" value="submit"><td />
+				</select>
+				<td />
 			<tr />
-			
-			
+
+			<tr>
+
+				<td><input type="submit" value="submit">
+				<td />
+			<tr />
+
+
 
 		</table>
 	</form>

@@ -1,7 +1,7 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,24 +14,26 @@ import dao.DAO;
 import model.Car;
 
 /**
- * Servlet implementation class ListOfCarServlet
+ * Servlet implementation class BuyInsuranceServlet
  */
-@WebServlet("/listOfCar")
-public class ListOfCarServlet extends HttpServlet {
+@WebServlet("/buyInsurance")
+public class BuyInsuranceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ListOfCarServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public BuyInsuranceServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -40,11 +42,12 @@ public class ListOfCarServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DAO dao = new DAO();
-		ArrayList<Car> listAllCar = dao.getAllCars();
+	    DAO dao = new DAO();
+		List<Car> listAvailableCars = dao.getAvailableCars();
 		
-		request.setAttribute("listAllCar", listAllCar);
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/listOfCar.jsp");
+		
+		request.setAttribute("listAvailableCars", listAvailableCars);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("buyInsurance.jsp");
 		requestDispatcher.forward(request, response);
 	}
 

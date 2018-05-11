@@ -11,6 +11,7 @@ public class ModernCar extends Car {
 	public ModernCar(String carName, int numberPlate, int yearOfManufacture, String brand, boolean insurance, boolean havePositioningDevice ) {
 		super(carName, numberPlate, yearOfManufacture, brand, insurance);
 		this.havePositioningDevice = havePositioningDevice;
+	
 	}
 
 	@Override
@@ -26,6 +27,7 @@ public class ModernCar extends Car {
 
 	public void setHavePositioningDevice(boolean havePositioningDevice) {
 		this.havePositioningDevice = havePositioningDevice;
+		this.otherFeature = "Have Position Device: " + this.havePositioningDevice;
 	}
 
 

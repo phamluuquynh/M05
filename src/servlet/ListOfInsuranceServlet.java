@@ -1,7 +1,7 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,18 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.DAO;
+import model.Insurance;
 
 /**
- * Servlet implementation class AddInsuranceServlet
+ * Servlet implementation class ListOfInsuranceServlet
  */
-@WebServlet("/AddInsuranceServlet")
-public class AddInsuranceServlet extends HttpServlet {
+@WebServlet("/listOfInsurance")
+public class ListOfInsuranceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AddInsuranceServlet() {
+	public ListOfInsuranceServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -33,19 +34,8 @@ public class AddInsuranceServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PrintWriter writer = response.getWriter();
-		String insuranceName = request.getParameter("insuranceName");
-		String insuranceType = request.getParameter("insuranceType");
-
-		DAO dao = new DAO();
-		if(dao.checkInsurance(insuranceName)) {
-			writer.print("This insurance package is existed!");
-			return;
-		}
-		dao.insertInsurance(insuranceName, insuranceType);
-		writer.append("Served at: ").append(request.getContextPath());
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("Menu.jsp");
-		requestDispatcher.forward(request, response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -54,8 +44,12 @@ public class AddInsuranceServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		DAO dao = new DAO();
+		List<Insurance> listAllInsurance = dao.getAllInsurance();
+		request.setAttribute("listAllInsurance", listAllInsurance);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/listOfInsurance.jsp");
+		requestDispatcher.forward(request, response);
+
 	}
 
 }

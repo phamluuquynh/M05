@@ -12,6 +12,7 @@ public class OldCar extends Car {
 			int actionDuration) {
 		super(carName, numberPlate, yearOfManufacture, brand, insurance);
 		this.actionDuration = actionDuration;
+		
 	}
 
 	@Override
@@ -28,6 +29,7 @@ public class OldCar extends Car {
 
 	public void setActionDuration(int actionDuration) {
 		this.actionDuration = actionDuration;
+		this.otherFeature = " Acton Duration: "+ this.actionDuration;
 	}
 
 }

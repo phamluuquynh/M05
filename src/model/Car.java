@@ -6,6 +6,7 @@ public class Car {
 	private int yearOfManufacture;
 	private String brand;
 	private boolean insurance;
+	protected String otherFeature;
 
 	public Car() {
 		super();
@@ -65,5 +66,10 @@ public class Car {
 	public void showCarInfo() {
 		System.out.println(carName+" - "+numberPlate+ " - "+yearOfManufacture+" - "+brand+" - "+insurance);
 	}
+
+	public String getOtherFeature() {
+		return otherFeature;
+	}
+	
 
 }
